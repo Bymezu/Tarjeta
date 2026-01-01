@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>¡Felicidades!</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #ffdee9;
+        background-image: linear-gradient(0deg, #ffdee9 0%, #b5fffc 100%);
+        font-family: "Comic Neue", cursive;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 15px;
+        overflow-x: hidden;
+      }
+
+      .card {
+        background: #ffffff;
+        width: 100%;
+        max-width: 420px;
+        border-radius: 25px;
+        border: 4px solid #333;
+        box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        text-align: center;
+        animation: wobbleIn 1s ease-out forwards;
+        position: relative;
+        z-index: 10;
+      }
+
+      .img-block {
+        width: 100%;
+        height: 220px;
+        overflow: hidden;
+        border-bottom: 4px solid #333;
+      }
+
+      .img-block img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .second-img {
+        margin-top: 20px;
+        border-top: 4px solid #333;
+      }
+
+      .content {
+        padding: 25px 20px;
+        padding-bottom: 40px;
+      }
+
+      h1 {
+        font-family: "Bangers", cursive;
+        color: #333;
+        font-size: 3rem;
+        text-shadow: 2px 2px 0px #ffd700;
+        margin-bottom: 15px;
+        line-height: 1;
+      }
+
+      p {
+        color: #444;
+        font-size: 1.2rem;
+        font-weight: bold;
+        line-height: 1.5;
+        margin-bottom: 15px;
+      }
+
+      .gift-section {
+        margin-top: 25px;
+      }
+
+      .gift-btn {
+        background: #ff4757;
+        color: white;
+        border: 3px solid #333;
+        padding: 15px 30px;
+        font-size: 1.5rem;
+        font-family: "Bangers", cursive;
+        border-radius: 15px;
+        cursor: pointer;
+        box-shadow: 4px 4px 0px #333;
+        transition: all 0.1s;
+        animation: pulse 1.5s infinite;
+      }
+
+      .gift-btn:active {
+        transform: translate(4px, 4px);
+        box-shadow: 0px 0px 0px #333;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(5px);
+        z-index: 9999;
+        display: flex;
+        justify_content: center;
+        align-items: center;
+        flex-direction: column;
+
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .gift-container {
+        position: relative;
+        max-width: 90%;
+        text-align: center;
+        transform: scale(0.5);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+
+      .overlay.active .gift-container {
+        transform: scale(1);
+      }
+
+      .gift-container img {
+        width: 100%;
+        max-height: 60vh;
+        border-radius: 20px;
+        border: 5px solid white;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      }
+
+      .close-btn {
+        margin-top: 20px;
+        background: white;
+        color: #333;
+        border: none;
+        padding: 10px 20px;
+        font-family: "Bangers", cursive;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        cursor: pointer;
+        border: 3px solid #333;
+      }
+
+      @keyframes wobbleIn {
+        0% {
+          transform: translateY(100px) rotate(-5deg);
+          opacity: 0;
+        }
+        50% {
+          transform: rotate(3deg);
+        }
+        100% {
+          transform: translateY(0) rotate(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .middle-finger {
+        position: fixed;
+        top: -50px;
+        z-index: 100;
+        user-select: none;
+        pointer-events: none;
+        animation: fall linear forwards;
+      }
+
+      @keyframes fall {
+        to {
+          transform: translateY(110vh) rotate(90deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="rain-container"></div>
+
+    <div class="card">
+      <div class="img-block">
+        <img src="Img1.jpg" alt="Portada" />
+      </div>
+
+      <div class="content">
+        <h1>¡Cuanta vejes y decadencia</h1>
+
+        <p>Que más regalo que tenerme como hermano</p>
+
+        <div class="img-block second-img">
+          <img src="image.gif" alt="Segunda foto" />
+        </div>
+
+        <div class="gift-section">
+          <button class="gift-btn" id="openGiftBtn">🎁 REGALO 🎁</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="giftOverlay">
+      <div class="gift-container">
+        <img src="gif.gif" alt="GIF Sorpresa" />
+
+        <br />
+        <button class="close-btn" id="closeGiftBtn">
+          Gracias, me encantó❤️!
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const openBtn = document.getElementById("openGiftBtn");
+      const closeBtn = document.getElementById("closeGiftBtn");
+      const overlay = document.getElementById("giftOverlay");
+
+      openBtn.addEventListener("click", () => {
+        overlay.classList.add("active");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        overlay.classList.remove("active");
+      });
+
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          overlay.classList.remove("active");
+        }
+      });
+
+      function createFinger() {
+        const finger = document.createElement("div");
+        finger.innerText = "🖕";
+        finger.classList.add("middle-finger");
+
+        finger.style.left = Math.random() * 100 + "vw";
+
+        const size = Math.random() * 20 + 20;
+        finger.style.fontSize = size + "px";
+
+        const duration = Math.random() * 4 + 3;
+        finger.style.animationDuration = duration + "s";
+
+        document.body.appendChild(finger);
+
+        setTimeout(() => {
+          finger.remove();
+        }, duration * 1000);
+      }
+
+      setInterval(createFinger, 300);
+    </script>
+  </body>
+</html>
